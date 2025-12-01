@@ -2,6 +2,32 @@
 
 # Publicación de resultados y conclusiones
 
+## Integrantes
+- Carlos Alejandro Colfer Mendoza
+- Alvaro Manuel De Cossio Velazquez
+- Joaquín Basas
+- Joaquín Alvarado
+
+## Descripción breve del dataset
+El conjunto de datos utilizado proviene de reseñas públicas (ej.: Yelp) y contiene opiniones de usuarios sobre restaurantes. Cada fila representa una reseña e incluye tanto el texto de la reseña como metadatos del usuario y del establecimiento. Las columnas principales son:
+
+- `reviewID`: Identificador único de la reseña.
+- `reviewerID`: Identificador del usuario que escribió la reseña.
+- `restaurantID`: Identificador del restaurante.
+- `date` / `yelpJoinDate`: Fecha de la reseña y fecha de unión del usuario a la plataforma.
+- `rating` / `restaurantRating`: Calificación otorgada por el usuario y calificación agregada del restaurante.
+- `reviewContent`: Texto original de la reseña.
+- `reviewUsefulCount`, `usefulCount`, `coolCount`, `funnyCount`, `complimentCount`: Contadores de interacciones y reacciones a la reseña o al usuario.
+- `friendCount`, `reviewCount`, `fanCount`: Señales de actividad del usuario.
+- `flagged`: Etiqueta binaria usada en este trabajo (Y/N convertido a 1/0) que indica si la reseña fue marcada como potencialmente falsa.
+
+Puntos importantes sobre el dataset:
+
+- Tamaño: ~27k reseñas (aprox.), con metadatos extensos por usuario y por reseña.
+- Etiquetado: la columna `flagged` sirve como objetivo para detección de reseñas falsas; es una señal proporcionada en la fuente y fue convertida a binaria para modelado.
+- Calidad y limpieza: se eliminaron filas con `reviewID` o `reviewContent` faltantes; se convirtieron fechas y se crearon features derivadas (longitud de texto, antigüedad del usuario, densidad de palabras únicas, etc.).
+- Uso recomendado: el dataset es adecuado para experimentos de NLP (clasificación de texto) y para modelos sobre características estructuradas (detección de cuentas sospechosas), así como para crear conjuntos de entrenamiento/validación estratificados.
+
 ## Publicación de resultados
 Durante el Hito 2 entrenamos dos familias de modelos: (1) clasificadores de texto para detectar reseñas falsas a partir de la columna `reviewContent_clean` con representaciones BoW, TF‑IDF y BERT; y (2) modelos estructurados para detectar cuentas con comportamiento automatizado ("bots") usando métricas del usuario como antigüedad, volumen de reseñas y tasas de utilidad. Las métricas se calcularon sobre un conjunto de prueba estratificado (20 % de los datos) y permiten comparar precisión, recall, F1 y ROC-AUC. La siguiente tabla resume los resultados más relevantes:
 
